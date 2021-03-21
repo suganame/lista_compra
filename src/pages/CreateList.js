@@ -1,19 +1,13 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const CreateList = () => {
   return (
-    <View style={styles.container}>
+    <View>
       <Text>VTesteee</Text>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-  }
-})
 
 export default CreateList;
