@@ -11,11 +11,24 @@ const StackNavigator = () => {
   return (
     <NavigationContainer>
       <Tab.Navigator 
-        initialRouteName="Home"
-        headerMode="none"
+        initialRouteName="Lista"
+        screenOptions={{
+          cardStyle: {
+            backgroundColor: '#2aaf62'
+          },
+          headerStyle: {
+            backgroundColor: '#2aaf62',
+            shadowColor: 'transparent',
+            height: 60
+          },
+          headerTitleStyle: {
+            color: '#fff'
+          },
+          headerTitleAlign: 'center'
+        }}
       >
         <Tab.Screen
-          name="Home"
+          name="Lista"
           component={ListScreen} />
         <Tab.Screen
           name="CreateList"

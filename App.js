@@ -7,7 +7,7 @@
  */
 
 import React from 'react';
-import { View } from 'react-native';
+import {StatusBar} from 'react-native';
 import StackNavigator from './src/routes/StackNavigator';
 
 // import { NavigationContainer } from '@react-navigation/native';
@@ -15,7 +15,10 @@ import StackNavigator from './src/routes/StackNavigator';
 
 const App = () => {
   return (
-    <StackNavigator />
+    <>
+      <StatusBar hidden={true}/>
+      <StackNavigator />
+    </>
   )
 }
 
