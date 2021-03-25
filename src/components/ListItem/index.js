@@ -41,7 +41,7 @@ const ListItem = ({ description }) => {
         </Text>
       </View>
       
-      <View style={styles.listItemBorderBottom}></View>
+      {/* <View style={styles.listItemBorderBottom}></View> */}
     </View>
   )
 }
@@ -70,11 +70,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#b0b0b0',
   },
-  listItemBorderBottom: {
-    height: 0.1,
-    backgroundColor: 'black',
-    width: '90%'
-  }
+  // listItemBorderBottom: {
+  //   height: 0.1,
+  //   backgroundColor: 'black',
+  //   width: '90%'
+  // }
 });
 
 export default ListItem;
