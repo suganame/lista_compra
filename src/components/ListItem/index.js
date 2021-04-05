@@ -5,7 +5,6 @@ import {CheckBox} from 'react-native-elements';
 
 
 const ListItem = ({ description }) => {
-
   const [checked, setChecked] = useState(false);
 
   const handleCheck = () => {

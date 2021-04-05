@@ -10,17 +10,14 @@ import React from 'react';
 import {StatusBar} from 'react-native';
 import StackNavigator from './src/routes/StackNavigator';
 
-// import { NavigationContainer } from '@react-navigation/native';
-// import { createStackNavigator } from '@react-navigation/stack';
-
 const App = () => {
   return (
     <>
-      <StatusBar hidden={true}/>
+      <StatusBar hidden={true} />
       <StackNavigator />
     </>
-  )
-}
+  );
+};
 
 // import ListScreen from './src/pages/ListScreen';
 
@@ -78,7 +75,7 @@ const App = () => {
 //         component={CreateList}
 //         options={{
 //           title: "Lista",
-//           tabBarIcon: ({ color }) => 
+//           tabBarIcon: ({ color }) =>
 //             <Icon name="list" size={28} color={color} />
 //         }}
 //        />
