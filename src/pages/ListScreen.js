@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable react/jsx-no-duplicate-props */
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -8,42 +8,27 @@ import {
   Dimensions,
 } from 'react-native';
 import {Overlay, Input} from 'react-native-elements';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {SwipeListView} from 'react-native-swipe-list-view';
 
 import ListItem from '../components/ListItem';
 
 import styles from './styles';
+import { ListaContext } from '../contexts/ListaContext';
 
 const ListScreen = ({navigation}) => {
-  const [list, setList] = useState([]);
   const [formVisible, setFormVisible] = useState(false);
   const [item, setItem] = useState({});
 
-  useEffect(() => {
-    AsyncStorage.getItem('purchaseList').then(data => {
-      if (data) {
-        const list = JSON.parse(data);
-        setList(list);
-      }
-    });
-  }, []);
+  const {list, changeList} = useContext(ListaContext);
 
   async function saveList() {
     try {
       item.key = list.length + 1;
       const newList = [...list, item];
-      setList(newList);
-      const purchaseList = JSON.stringify(newList);
-      await AsyncStorage.setItem('purchaseList', purchaseList);
+      changeList(newList);
       setFormVisible(false);
     } catch (e) {}
-  }
-
-  async function resetList() {
-    await AsyncStorage.clear();
-    setList([]);
   }
 
   const renderHiddenItem = (data, rowMap) => (
@@ -57,7 +42,7 @@ const ListScreen = ({navigation}) => {
     const {key, value} = swipeData;
     if (value < -Dimensions.get('window').width) {
       let newList = list.filter(product => product.key !== key);
-      setList(newList);
+      changeList(newList);
     }
   };
 
@@ -88,13 +73,6 @@ const ListScreen = ({navigation}) => {
         previewOpenDelay={3000}
         onSwipeValueChange={onSwipeValueChange}
       />
-
-      <TouchableOpacity
-        style={styles.floatLeftButton}
-        activeOpacity={1}
-        onPress={resetList}>
-        <Icon name="minus" size={16} color="#fff" />
-      </TouchableOpacity>
 
       {/* <Text style={{fontSize: 32, fontWeight: 'bold'}}>R$ 200,00</Text> */}
 
@@ -134,8 +112,12 @@ const ListScreen = ({navigation}) => {
         </View>
 
         <View style={styles.flexRow}>
-          <TouchableOpacity onPress={saveList}>
-            <Text>Inserir</Text>
+          <TouchableOpacity
+            activeOpacity={0.9}
+            onPress={saveList}
+            style={styles.btnAdd}
+          >
+            <Text style={styles.btnAddText}>Inserir</Text>
           </TouchableOpacity>
         </View>
       </Overlay>
