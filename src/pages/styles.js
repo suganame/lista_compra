@@ -87,6 +87,17 @@ const styles = StyleSheet.create({
   inputRow: {
     width: 10,
   },
+  btnAdd: {
+    padding:  16,
+    width: '100%',
+    backgroundColor: '#97C85F',
+  },
+  btnAddText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
+  },
 });
 
 export default styles;
