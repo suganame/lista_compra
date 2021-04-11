@@ -9,86 +9,15 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
 import StackNavigator from './src/routes/StackNavigator';
+import {ModalProvider} from './src/context/ModalContext';
 
 const App = () => {
   return (
-    <>
+    <ModalProvider>
       <StatusBar hidden={true} />
       <StackNavigator />
-    </>
+    </ModalProvider>
   );
 };
-
-// import ListScreen from './src/pages/ListScreen';
-
-// const Tab = createStackNavigator();
-
-// const App = () => {
-//   return (
-//     <NavigationContainer>
-//       <Tab.Navigator initialRouteName="Home">
-//         <Tab.Screen
-//           name="Home"
-//           component={ListScreen} />
-//       </Tab.Navigator>
-//     </NavigationContainer>
-//   )
-// }
-
-// const Tab = createBottomTabNavigator();
-
-// const TabScreens = () => {
-//   return(
-//     <Tab.Navigator
-//       headerMode="none"
-//       tabBarOptions={{
-//         inactiveTintColor: "#c9c9cf",
-//         activeTintColor: "#006573",
-//         labelStyle: {
-//           fontSize: 12,
-//         },
-//         style: {
-//           height: 55,
-//           paddingBottom: 5,
-//           paddingTop: 5,
-//         },
-//       }}
-//       screenOptions={{
-//         cardStyle: {
-//           backgroundColor: "#f0f0f5",
-//         },
-//       }}
-//     >
-//       <Tab.Screen
-//         name="Home"
-//         component={ListScreen}
-//         activeTintColor="#FFF"
-//         options={{
-//           title: "Principal",
-//           tabBarIcon: ({ color }) =>
-//             <Icon name="list" size={28} color={color} />
-//         }}
-//       />
-
-//       <Tab.Screen
-//         name="List"
-//         component={CreateList}
-//         options={{
-//           title: "Lista",
-//           tabBarIcon: ({ color }) =>
-//             <Icon name="list" size={28} color={color} />
-//         }}
-//        />
-//     </Tab.Navigator>
-//   )
-// }
-
-// const App = () => {
-//   return (
-//     <NavigationContainer>
-//       <TabScreens />
-//     </NavigationContainer>
-//   )
-// }
 
 export default App;
