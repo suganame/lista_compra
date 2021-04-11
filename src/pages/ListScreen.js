@@ -1,25 +1,19 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable react/jsx-no-duplicate-props */
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-import {Overlay, Input} from 'react-native-elements';
+import React, {useEffect, useState, useContext} from 'react';
+import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {SwipeListView} from 'react-native-swipe-list-view';
 
 import ListItem from '../components/ListItem';
-
+import OverlayList from '../components/OverlayList';
+import {ModalContext} from '../context/ModalContext';
 import styles from './styles';
 
 const ListScreen = ({navigation}) => {
   const [list, setList] = useState([]);
-  const [formVisible, setFormVisible] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const [item, setItem] = useState({});
+  const {show, toggleShow} = useContext(ModalContext);
 
   useEffect(() => {
     AsyncStorage.getItem('purchaseList').then(data => {
@@ -30,21 +24,21 @@ const ListScreen = ({navigation}) => {
     });
   }, []);
 
-  async function saveList() {
-    try {
-      item.key = list.length + 1;
-      const newList = [...list, item];
-      setList(newList);
-      const purchaseList = JSON.stringify(newList);
-      await AsyncStorage.setItem('purchaseList', purchaseList);
-      setFormVisible(false);
-    } catch (e) {}
-  }
+  // async function saveList() {
+  //   try {
+  //     item.key = list.length + 1;
+  //     const newList = [...list, item];
+  //     setList(newList);
+  //     const purchaseList = JSON.stringify(newList);
+  //     await AsyncStorage.setItem('purchaseList', purchaseList);
+  //     setFormVisible(false);
+  //   } catch (e) {}
+  // }
 
-  async function resetList() {
-    await AsyncStorage.clear();
-    setList([]);
-  }
+  // async function resetList() {
+  //   await AsyncStorage.clear();
+  //   setList([]);
+  // }
 
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
@@ -60,10 +54,6 @@ const ListScreen = ({navigation}) => {
       setList(newList);
     }
   };
-
-  function handleChange(e, name) {
-    setItem({...item, [name]: e.nativeEvent.text});
-  }
 
   return (
     <View style={styles.listScreenContainer}>
@@ -88,57 +78,27 @@ const ListScreen = ({navigation}) => {
         previewOpenDelay={3000}
         onSwipeValueChange={onSwipeValueChange}
       />
-
+      {/* 
+      this function will clear all list data
       <TouchableOpacity
         style={styles.floatLeftButton}
         activeOpacity={1}
         onPress={resetList}>
         <Icon name="minus" size={16} color="#fff" />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
 
       {/* <Text style={{fontSize: 32, fontWeight: 'bold'}}>R$ 200,00</Text> */}
 
       <TouchableOpacity
         style={styles.floatButton}
         activeOpacity={1}
-        onPress={() => setFormVisible(true)}>
-        <Icon name="plus" size={16} color="#fff" />
+        onPress={() => toggleShow(true)}>
+        {show == false ? (
+          <Icon name="plus" size={16} color="#fff" />
+        ) : (
+          <OverlayList />
+        )}
       </TouchableOpacity>
-
-      <Overlay
-        style={styles.formItem}
-        isVisible={formVisible}
-        overlayStyle={styles.overlayStyle}
-        onBackdropPress={() => setFormVisible(false)}>
-        <Input
-          placeholder="Item"
-          name={'item'}
-          onChange={e => handleChange(e, 'item')}
-        />
-
-        <View style={styles.flexRow}>
-          <Input
-            style={styles.inputRow}
-            placeholder="Valor"
-            keyboardType="decimal-pad"
-            name="value"
-            onChange={e => handleChange(e, 'value')}
-          />
-          <Input
-            style={styles.inputRow}
-            placeholder="Quantidade"
-            keyboardType="number-pad"
-            name="quantity"
-            onChange={e => handleChange(e, 'quant')}
-          />
-        </View>
-
-        <View style={styles.flexRow}>
-          <TouchableOpacity onPress={saveList}>
-            <Text>Inserir</Text>
-          </TouchableOpacity>
-        </View>
-      </Overlay>
     </View>
   );
 };
