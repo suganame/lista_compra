@@ -1,18 +1,15 @@
-/* eslint-disable prettier/prettier */
-import React, { useContext } from 'react';
+import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import ListScreen from '../pages/ListScreen';
-import { View, TouchableOpacity } from 'react-native';
-import { Icon } from 'react-native-elements';
-import { ListaContext } from '../contexts/ListaContext';
-
+import {View, TouchableOpacity} from 'react-native';
+import {Icon} from 'react-native-elements';
+import {ListaContext} from '../contexts/ListaContext';
 
 const Tab = createStackNavigator();
 
 const StackNavigator = () => {
-
   const {clearList} = useContext(ListaContext);
 
   return (
@@ -37,21 +34,14 @@ const StackNavigator = () => {
           component={ListScreen}
           options={{
             headerRight: () => (
-              <View style={{ paddingHorizontal: 24 }}>
-                <TouchableOpacity
-                  activeOpacity={0.8}
-                  onPress={clearList}
-                >
-                  <Icon
-                    name="trash"
-                    color="#fff"
-                    type="font-awesome"
-                  />
+              <View style={{paddingHorizontal: 24}}>
+                <TouchableOpacity activeOpacity={0.8} onPress={clearList}>
+                  <Icon name="trash" color="#fff" type="font-awesome" />
                 </TouchableOpacity>
               </View>
             ),
           }}
-           />
+        />
       </Tab.Navigator>
     </NavigationContainer>
   );

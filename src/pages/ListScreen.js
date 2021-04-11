@@ -7,11 +7,10 @@ import styles from './styles';
 import ListItem from '../components/ListItem';
 import OverlayList from '../components/OverlayList';
 
-import {ModalContext} from '../context/ModalContext';
+import {ModalContext} from '../contexts/ModalContext';
 import {ListaContext} from '../contexts/ListaContext';
 
 const ListScreen = ({navigation}) => {
-  const [list, setList] = useState([]);
   const {show, toggleShow} = useContext(ModalContext);
   const {list, changeList} = useContext(ListaContext);
 

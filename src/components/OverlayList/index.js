@@ -3,22 +3,21 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {Overlay, Input} from 'react-native-elements';
 
 import styles from './styles';
-import {ModalContext} from '../../context/ModalContext';
+import {ModalContext} from '../../contexts/ModalContext';
+import {ListaContext} from '../../contexts/ListaContext';
 
 const OverlayList = ({formVisible}) => {
   const {show, toggleShow} = useContext(ModalContext);
   const [item, setItem] = useState({});
+  const {changeList, list} = useContext(ListaContext);
 
   async function saveList() {
-    // try {
-    //   item.key = list.length + 1;
-    //   const newList = [...list, item];
-    //   setList(newList);
-    //   const purchaseList = JSON.stringify(newList);
-    //   await AsyncStorage.setItem('purchaseList', purchaseList);
-    //   setFormVisible(true);
-    // } catch (e) {}
-    toggleShow(false);
+    try {
+      item.key = list.length + 1;
+      const newList = [...list, item];
+      changeList(newList);
+      toggleShow(false);
+    } catch (e) {}
   }
 
   function handleChange(e, name) {

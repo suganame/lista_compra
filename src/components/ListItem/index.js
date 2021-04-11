@@ -22,11 +22,11 @@ const ListItem = ({description}) => {
         <Text
           style={checked ? styles.textListItemDisabled : styles.textListItem}
           numberOfLines={2}>
-          {description}
+          {description ? description : <Text> teste </Text>}
         </Text>
         <Text
           style={checked ? styles.textListItemDisabled : styles.textListItem}>
-          R$ a1,00
+          R$ 1,00
         </Text>
         <Text
           style={checked ? styles.textListItemDisabled : styles.textListItem}>
