@@ -8,15 +8,18 @@
 
 import React from 'react';
 import {StatusBar} from 'react-native';
+import {ListaProvider} from './src/contexts/ListaContext';
 import StackNavigator from './src/routes/StackNavigator';
 import {ModalProvider} from './src/context/ModalContext';
 
 const App = () => {
   return (
-    <ModalProvider>
-      <StatusBar hidden={true} />
-      <StackNavigator />
-    </ModalProvider>
+    <ListaProvider>
+      <ModalProvider>
+        <StatusBar hidden={true} />
+        <StackNavigator />
+      </ModalProvider>
+    </ListaProvider>
   );
 };
 
