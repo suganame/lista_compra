@@ -5,11 +5,13 @@ import {Overlay, Input} from 'react-native-elements';
 import styles from './styles';
 import {ModalContext} from '../../contexts/ModalContext';
 import {ListaContext} from '../../contexts/ListaContext';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const OverlayList = ({formVisible}) => {
   const {show, toggleShow} = useContext(ModalContext);
   const [item, setItem] = useState({});
   const {changeList, list} = useContext(ListaContext);
+  const [count, setCount] = useState(0);
 
   async function saveList() {
     try {
@@ -32,6 +34,7 @@ const OverlayList = ({formVisible}) => {
       onBackdropPress={() => toggleShow(false)}>
       <Input
         placeholder="Item"
+        placeholderTextColor="#2aaf6d"
         name={'item'}
         onChange={e => handleChange(e, 'item')}
       />
@@ -40,23 +43,23 @@ const OverlayList = ({formVisible}) => {
         <Input
           style={styles.inputRow}
           placeholder="Valor"
+          placeholderTextColor="#2aaf6d"
           keyboardType="decimal-pad"
           name="value"
           onChange={e => handleChange(e, 'value')}
         />
-        <Input
-          style={styles.inputRow}
-          placeholder="Quantidade"
-          keyboardType="number-pad"
-          name="quantity"
-          onChange={e => handleChange(e, 'quant')}
-        />
-      </View>
-
-      <View style={styles.flexRow}>
-        <TouchableOpacity onPress={saveList}>
-          <Text>Inserir</Text>
-        </TouchableOpacity>
+        <View style={styles.viewButtons}>
+          <TouchableOpacity onPress={() => setCount(count+1)} style={styles.countButton}>
+            <Icon name="plus" size={20} color="#fff"/>
+            </TouchableOpacity>
+          <Text style={styles.quantity}>{count}</Text>
+          <TouchableOpacity onPress={() => {count > 0 ? setCount(count-1) : null }} style={styles.countButton}>
+            <Icon name="minus" size={20} color="#fff"/>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={saveList}>
+            <Text style={styles.submit}>Inserir</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </Overlay>
   );
