@@ -42,7 +42,6 @@ const ListScreen = ({ navigation }) => {
     console.log(list)
     list.map(item => {
       let totalItem = parseFloat(item.value.replace(',', '.').replace('.', '')) * item.quantity;
-      // let totalItem = 0;
       total += totalItem;
     })
     setTotal(total.toFixed(2))
