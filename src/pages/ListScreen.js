@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import {
   View,
   Text,
@@ -7,18 +7,20 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {SwipeListView} from 'react-native-swipe-list-view';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { TextInputMask } from 'react-native-masked-text'
 
 import styles from './styles';
 import ListItem from '../components/ListItem';
 import OverlayList from '../components/OverlayList';
 
-import {ModalContext} from '../contexts/ModalContext';
-import {ListaContext} from '../contexts/ListaContext';
+import { ModalContext } from '../contexts/ModalContext';
+import { ListaContext } from '../contexts/ListaContext';
 
-const ListScreen = ({navigation}) => {
-  const {show, toggleShow} = useContext(ModalContext);
-  const {list, changeList} = useContext(ListaContext);
+const ListScreen = ({ navigation }) => {
+  const [total, setTotal] = useState(0);
+  const { show, toggleShow } = useContext(ModalContext);
+  const { list, changeList } = useContext(ListaContext);
 
   const renderHiddenItem = (data, rowMap) => (
     <View style={styles.rowBack}>
@@ -28,12 +30,23 @@ const ListScreen = ({navigation}) => {
   );
 
   const onSwipeValueChange = swipeData => {
-    const {key, value} = swipeData;
+    const { key, value } = swipeData;
     if (value < -Dimensions.get('window').width) {
       let newList = list.filter(product => product.key !== key);
       changeList(newList);
     }
   };
+
+  useEffect(() => {
+    let total = 0;
+    console.log(list)
+    list.map(item => {
+      let totalItem = parseFloat(item.value.replace(',', '.').replace('.', '')) * item.quantity;
+      // let totalItem = 0;
+      total += totalItem;
+    })
+    setTotal(total.toFixed(2))
+  }, [list])
 
   return (
     <SafeAreaView style={styles.listScreenContainer}>
@@ -59,7 +72,7 @@ const ListScreen = ({navigation}) => {
         onSwipeValueChange={onSwipeValueChange}
       />
 
-      {/* <Text style={{fontSize: 32, fontWeight: 'bold'}}>R$ 200,00</Text> */}
+      <Text style={{ fontSize: 32, fontWeight: 'bold' }}>R$ {total} </Text>
 
       <TouchableOpacity
         style={styles.floatButton}

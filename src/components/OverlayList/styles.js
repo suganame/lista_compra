@@ -1,4 +1,4 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   overlayStyle: {
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   viewButtons: {
     width: '100%',
     height: 70,
-    
+
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
