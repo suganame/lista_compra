@@ -1,5 +1,11 @@
 import React, {useState, useContext} from 'react';
-import {View, Text, TouchableOpacity, Dimensions} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+  SafeAreaView,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {SwipeListView} from 'react-native-swipe-list-view';
 
@@ -30,7 +36,7 @@ const ListScreen = ({navigation}) => {
   };
 
   return (
-    <View style={styles.listScreenContainer}>
+    <SafeAreaView style={styles.listScreenContainer}>
       <View style={styles.listTitles}>
         <View />
         <Text style={styles.title}>Item</Text>
@@ -42,7 +48,7 @@ const ListScreen = ({navigation}) => {
         data={list}
         renderItem={(data, rowMap) => (
           <View style={styles.rowFront} key={data.item.key}>
-            <ListItem description={data.item.item} />
+            <ListItem data={data.item} />
           </View>
         )}
         renderHiddenItem={renderHiddenItem}
@@ -65,7 +71,7 @@ const ListScreen = ({navigation}) => {
           <OverlayList />
         )}
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, Text} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import styles from './styles';
 
-const ListItem = ({description}) => {
-  const [checked, setChecked] = useState(false);
+const ListItem = ({data}) => {
+  const [checked, setChecked] = useState(data.checked);
 
   const handleCheck = () => {
-    if (checked) setChecked(false);
-    else setChecked(true);
+    if (checked) {
+      setChecked(false);
+    } else {
+      setChecked(true);
+    }
   };
 
   return (
@@ -22,19 +25,17 @@ const ListItem = ({description}) => {
         <Text
           style={checked ? styles.textListItemDisabled : styles.textListItem}
           numberOfLines={2}>
-          {description ? description : <Text> teste </Text>}
+          {data.description ? data.description : <Text> teste </Text>}
         </Text>
         <Text
           style={checked ? styles.textListItemDisabled : styles.textListItem}>
-          R$ 1,00
+          {data.value}
         </Text>
         <Text
           style={checked ? styles.textListItemDisabled : styles.textListItem}>
-          1
+          {data.quantity}
         </Text>
       </View>
-
-      {/* <View style={styles.listItemBorderBottom}></View> */}
     </View>
   );
 };

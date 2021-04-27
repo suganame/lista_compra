@@ -22,7 +22,7 @@ const StackNavigator = () => {
           },
           headerStyle: {
             backgroundColor: '#2aaf62',
-            height: 90,
+            height: 72,
           },
           headerTitleStyle: {
             color: '#fff',
