@@ -16,6 +16,13 @@ const OverlayList = ({formVisible}) => {
   async function saveList() {
     try {
       item.key = list.length + 1;
+      if (!item.quantity) {
+        item.quantity = 1;
+      }
+      if (!item.value) {
+        item.value = 0;
+      }
+      item.checked = false;
       const newList = [...list, item];
       changeList(newList);
       toggleShow(false);
@@ -34,9 +41,8 @@ const OverlayList = ({formVisible}) => {
       onBackdropPress={() => toggleShow(false)}>
       <Input
         placeholder="Item"
-        placeholderTextColor="#2aaf6d"
-        name={'item'}
-        onChange={e => handleChange(e, 'item')}
+        name={'description'}
+        onChange={e => handleChange(e, 'description')}
       />
 
       <View style={styles.flexRow}>
