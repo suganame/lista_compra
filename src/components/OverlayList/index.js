@@ -1,7 +1,7 @@
-import React, { useContext, useState, useRef } from 'react';
+import React, { useContext, useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { Overlay, Input } from 'react-native-elements';
-import { TextInputMask } from 'react-native-masked-text'
+import TextInputMask from 'react-native-text-input-mask';
 
 import styles from './styles';
 import { ModalContext } from '../../contexts/ModalContext';
@@ -13,14 +13,17 @@ const OverlayList = ({ formVisible }) => {
   const [item, setItem] = useState({});
   const { changeList, list } = useContext(ListaContext);
   const [quantity, setQuantity] = useState(1);
+  const [value, setValue] = useState(0)
 
   async function saveList() {
     try {
       item.key = new Date().getTime();
       item.quantity = quantity;
-      if (!item.value) {
-        item.value = 0;
-      }
+      item.value = value
+      console.log(value);
+      // if (!item.value) {
+      //   item.value = 0;
+      // }
       item.checked = false;
       const newList = [...list, item];
       changeList(newList);
@@ -46,17 +49,16 @@ const OverlayList = ({ formVisible }) => {
 
       <View style={styles.flexRow}>
         <TextInputMask
-          name="value"
-          type={'money'}
-          placeholder="Valor"
+          onChangeText={(formatted, extracted) => {
+            setValue(formatted)
+            console.log(formatted);
+          }}
+          mask={"[99999990].[99]"}
           keyboardType="decimal-pad"
-          onChangeText={text => setItem({ ...item, "value": text })}
-          options={{
-            precision: 2,
-            separator: '',
-            delimiter: '',
-            unit: '',
-            suffixUnit: ''
+          style={{
+            borderBottomColor: '#000',
+            width: '100%',
+            borderWidth: 1
           }}
         />
         <View style={styles.viewButtons}>

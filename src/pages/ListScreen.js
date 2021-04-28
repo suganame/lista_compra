@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { SwipeListView } from 'react-native-swipe-list-view';
-import { TextInputMask } from 'react-native-masked-text'
 
 import styles from './styles';
 import ListItem from '../components/ListItem';
@@ -39,9 +38,8 @@ const ListScreen = ({ navigation }) => {
 
   useEffect(() => {
     let total = 0;
-    console.log(list)
     list.map(item => {
-      let totalItem = parseFloat(item.value.replace(',', '.').replace('.', '')) * item.quantity;
+      let totalItem = item.value * item.quantity;
       total += totalItem;
     })
     setTotal(total.toFixed(2))
